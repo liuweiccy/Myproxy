@@ -1,0 +1,15 @@
+{
+  "service": "game service",
+  "host": "192.168.203.25",
+  "port": 9527,
+  "webport": 7259,
+  "strategy": "poll",
+  "heartbeat": 6,
+  "maxprocessor": 1,
+  "backends": [
+    {
+      "host": "192.168.20.126",
+      "port": 10001
+    }
+  ]
+}
