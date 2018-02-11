@@ -65,3 +65,14 @@ func (data *ProxyData) BackendUrls() []string {
 	}
 	return keys
 }
+
+func (data *ProxyData) Clean() {
+	cleanMap(data.Backends)
+	cleanMap(data.Deads)
+	data.ChannelManager.Clean()
+}
+func cleanMap(_map map[string]structure.Backend) {
+    for k := range _map {
+        delete(_map, k)
+    }
+}

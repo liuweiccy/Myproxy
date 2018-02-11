@@ -18,26 +18,6 @@ type ProxyServer struct {
 	on	        bool
 }
 
-func (proxyServer *ProxyServer) Check() {
-	panic("implement me")
-}
-
-func (proxyServer *ProxyServer) Clean(url string) {
-	panic("implement me")
-}
-
-func (proxyServer *ProxyServer) Recover(url string) {
-	panic("implement me")
-}
-
-func (proxyServer *ProxyServer) Dispatch(con net.Conn) {
-	panic("implement me")
-}
-
-func (proxyServer *ProxyServer) Close() {
-	panic("implement me")
-}
-
 func (proxyServer *ProxyServer) Init(config *config.Config)  {
 	proxyServer.host = config.Host
 	proxyServer.port = config.Port
@@ -88,5 +68,11 @@ func (proxyServer *ProxyServer) heartBeat() {
 			}
 		}
 	}()
+}
+func (proxyServer *ProxyServer) Stop() {
+    proxyServer.on = false
+    proxyServer.proxy.Close()
+    proxyServer.listener.Close()
+    log.Println("easyproxy server stop ok")
 }
 
