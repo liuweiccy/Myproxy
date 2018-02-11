@@ -1,4 +1,5 @@
 package schedule
 
-type Strategy struct {
+type Strategy interface {
+
 }
