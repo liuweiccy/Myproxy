@@ -3,6 +3,7 @@ package util
 import (
 	"path/filepath"
 	"log"
+	"strconv"
 )
 
 func HomePath() string {
@@ -15,6 +16,10 @@ func AbsolutePath(relpath string) string {
 		log.Println("current path error:", err)
 	}
 	return absolutePath
+}
+
+func HostAndPortToAddress(host string, port uint16) string {
+	return host + ":" + strconv.Itoa(int(port))
 }
 
 

@@ -3,6 +3,7 @@ package proxy
 import (
 	"config"
 	"net"
+	"log"
 )
 
 type EasyProxy struct {
@@ -10,15 +11,17 @@ type EasyProxy struct {
 }
 
 func (proxy *EasyProxy) Clean(url string) {
-	panic("implement me")
+	proxy.data.cleanBackend(url)
 }
 
 func (proxy *EasyProxy) Recover(url string) {
-	panic("implement me")
+	proxy.data.cleanDeadend(url)
 }
 
 func (proxy *EasyProxy) Dispatch(con net.Conn) {
-	panic("implement me")
+	if proxy.isBackendAvailable() {
+		//servers := proxy.data.
+	}
 }
 
 func (proxy *EasyProxy) Close() {
@@ -26,7 +29,22 @@ func (proxy *EasyProxy) Close() {
 }
 
 func (proxy *EasyProxy) Check()  {
+	for _, backend := range proxy.data.Backends {
+		_, err := net.Dial("tcp", backend.Url())
+		if err != nil {
+			proxy.Clean(backend.Url())
+		} else {
+			log.Println(backend.Url() + " is keeplive")
+		}
+	}
 
+	for _, deadend := range proxy.data.Deads {
+		_, err := net.Dial("tcp", deadend.Url())
+		if err == nil {
+			proxy.Recover(deadend.Url())
+			log.Println(deadend.Url(), "is recover connect")
+		}
+	}
 }
 
 func (proxy *EasyProxy)Init(config *config.Config)  {
@@ -36,6 +54,9 @@ func (proxy *EasyProxy)Init(config *config.Config)  {
 
 func (proxy *EasyProxy)Start()  {
 
+}
+func (proxy *EasyProxy) isBackendAvailable() bool {
+	return len(proxy.data.Backends) > 0
 }
 
 
