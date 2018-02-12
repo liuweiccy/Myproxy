@@ -8,5 +8,5 @@ type Backend struct {
 }
 
 func (backend *Backend)Url() string {
-	return util.HomePath()
+	return util.HostAndPortToAddress(backend.Host, backend.Port)
 }

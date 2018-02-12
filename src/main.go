@@ -7,8 +7,9 @@ import (
 	gw"gateway"
 	"config"
 	"path/filepath"
-	"log"
 	"util"
+    "log"
+    "runtime"
 )
 
 const DefaultConfigFile = "conf/default.json"
@@ -37,18 +38,20 @@ func (easyServer *EasyServer) CatchStopSignal() {
 	sig := make(chan os.Signal)
 	signal.Notify(sig, syscall.SIGKILL, syscall.SIGINT, syscall.SIGQUIT)
 	go func() {
-		<-sig
+		log.Println("接受到退出信号：", <-sig)
 		// 系统退出的资源保存和清理工作
 		easyServer.Stop()
+		log.Println("系统的清理工作已经完成")
 	}()
 }
 func main() {
 	homePath := util.HomePath()
-	configValue, err := config.Load(filepath.Join(homePath, DefaultConfigFile))
-	if err != nil {
-		log.Println()
-	}
-	easyServer := CreateEasyServer()
+    configValue, err := config.Load(filepath.Join(homePath, DefaultConfigFile))
+    if err != nil {
+        log.Println("加载配置错误")
+    }
+    runtime.GOMAXPROCS(configValue.MaxProcess)
+    easyServer := CreateEasyServer()
 	easyServer.Init(configValue)
 	easyServer.CatchStopSignal()
 	easyServer.Start()

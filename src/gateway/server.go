@@ -59,6 +59,7 @@ func (proxyServer ProxyServer)Address() string {
 
 // 更具配置的固定时间，心跳检测
 func (proxyServer *ProxyServer) heartBeat() {
+    log.Println("开始心跳检测......")
 	ticker := time.NewTicker(time.Second * time.Duration(proxyServer.beattime))
 	go func() {
 		for {

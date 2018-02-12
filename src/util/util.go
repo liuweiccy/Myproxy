@@ -4,7 +4,6 @@ import (
 	"path/filepath"
 	"log"
 	"strconv"
-    "structure"
     "reflect"
 )
 

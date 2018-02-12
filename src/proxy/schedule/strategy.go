@@ -16,3 +16,7 @@ var registry = make(map[string]Strategy)
 func init()  {
     registry[PollName] = new(Poll)
 }
+
+func GetStrategy(name string) Strategy {
+    return registry[name]
+}

@@ -12,6 +12,8 @@ type Config struct {
 	Host		string `json:"host"`
 	Port 		uint16 `json:"port"`
 	Heartbeat	uint16 `json:"heartbeat"`
+	Strategy    string `json:"strategy"`
+	MaxProcess  int    `json:"maxprocessor"`
 	Backends 	[]structure.Backend `json:"backends"`
 }
 

@@ -60,6 +60,11 @@ func (proxy *EasyProxy) Check()  {
 func (proxy *EasyProxy)Init(config *config.Config)  {
 	proxy.data = new(ProxyData)
 	proxy.data.Init(config)
+	proxy.setStrategy(config.Strategy)
+    InitStatistic(proxy.data)
+}
+func InitStatistic(proxyData *ProxyData) {
+
 }
 
 func (proxy *EasyProxy)Start()  {
@@ -104,6 +109,10 @@ func (proxy *EasyProxy) closeChannel(channel *structure.Channel, sync chan int) 
         <- sync
     }
     proxy.data.ChannelManager.DeleteChannel(channel)
+}
+func (proxy *EasyProxy) setStrategy(name string) {
+    proxy.strategy = schedule.GetStrategy(name)
+    proxy.strategy.Init()
 }
 
 
