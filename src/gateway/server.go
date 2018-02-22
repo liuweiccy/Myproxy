@@ -57,7 +57,7 @@ func (proxyServer ProxyServer)Address() string {
 	return util.HostAndPortToAddress(proxyServer.host, proxyServer.port)
 }
 
-// 更具配置的固定时间，心跳检测
+// 根据配置的固定时间，心跳检测
 func (proxyServer *ProxyServer) heartBeat() {
     log.Println("开始心跳检测......")
 	ticker := time.NewTicker(time.Second * time.Duration(proxyServer.beattime))
