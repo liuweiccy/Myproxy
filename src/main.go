@@ -45,7 +45,7 @@ func (easyServer *EasyServer) CatchStopSignal() {
 	}()
 }
 func main() {
-	homePath := util.HomePath()
+    homePath := util.HomePath()
     configValue, err := config.Load(filepath.Join(homePath, DefaultConfigFile))
     if err != nil {
         log.Println("加载配置错误")
