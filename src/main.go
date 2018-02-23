@@ -10,24 +10,28 @@ import (
 	"util"
     "log"
     "runtime"
+    "web"
 )
 
 const DefaultConfigFile = "conf/default.json"
 
 type EasyServer struct {
 	proxyServer *gw.ProxyServer
+	webServer   *web.WebServer
 }
 
 func CreateEasyServer() *EasyServer {
-	return &EasyServer{proxyServer:new(gw.ProxyServer)}
+	return &EasyServer{proxyServer:new(gw.ProxyServer), webServer:new(web.WebServer)}
 }
 
 func (easyServer *EasyServer) Init(config *config.Config)  {
-	easyServer.proxyServer.Init(config)
+    easyServer.webServer.Init(config)
+    easyServer.proxyServer.Init(config)
 }
 
 func (easyServer *EasyServer)Start()  {
-	easyServer.proxyServer.Start()
+    easyServer.webServer.Start()
+    easyServer.proxyServer.Start()
 }
 
 func (easyServer *EasyServer)Stop()  {
@@ -44,13 +48,14 @@ func (easyServer *EasyServer) CatchStopSignal() {
 		log.Println("系统的清理工作已经完成")
 	}()
 }
+
 func main() {
     homePath := util.HomePath()
     configValue, err := config.Load(filepath.Join(homePath, DefaultConfigFile))
     if err != nil {
         log.Println("加载配置错误")
     }
-    runtime.GOMAXPROCS(configValue.MaxProcess)
+    runtime.GOMAXPROCS(runtime.NumCPU())
     easyServer := CreateEasyServer()
 	easyServer.Init(configValue)
 	easyServer.CatchStopSignal()

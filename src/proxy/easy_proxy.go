@@ -63,9 +63,6 @@ func (proxy *EasyProxy)Init(config *config.Config)  {
 	proxy.setStrategy(config.Strategy)
     InitStatistic(proxy.data)
 }
-func InitStatistic(proxyData *ProxyData) {
-
-}
 
 func (proxy *EasyProxy)Start()  {
 

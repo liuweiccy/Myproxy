@@ -47,3 +47,7 @@ func (manager *ChannelManager) Clean() {
     }
     manager.channels = manager.channels[:0]
 }
+
+func (manager *ChannelManager)GetChannels() []Channel {
+    return manager.channels
+}

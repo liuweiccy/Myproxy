@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
     "reflect"
+    "strings"
 )
 
 func HomePath() string {
@@ -41,6 +42,10 @@ func SliceIndex(slice interface{}, element interface{}) int {
         }
     }
     return index
+}
+
+func UrlToHost(url string) string {
+    return strings.Split(url, ":")[0]
 }
 
 

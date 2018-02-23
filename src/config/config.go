@@ -11,6 +11,7 @@ type Config struct {
 	Service		string `json:"service"`
 	Host		string `json:"host"`
 	Port 		uint16 `json:"port"`
+	WebPort     uint16 `json:webport`
 	Heartbeat	uint16 `json:"heartbeat"`
 	Strategy    string `json:"strategy"`
 	MaxProcess  int    `json:"maxprocessor"`
