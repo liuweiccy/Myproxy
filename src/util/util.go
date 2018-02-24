@@ -24,7 +24,7 @@ func HostAndPortToAddress(host string, port uint16) string {
 	return host + ":" + strconv.Itoa(int(port))
 }
 
-// 再切片中查找对应元素的索引
+// 在切片中查找对应元素的索引
 func SliceIndex(slice interface{}, element interface{}) int {
     index := -1
     sv := reflect.ValueOf(slice)
